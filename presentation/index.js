@@ -38,6 +38,8 @@ require("spectacle/lib/themes/default/index.css");
 
 const images = {
   background: require("../assets/background.png"),
+  whowhat1: require("../assets/whowhatwhen1.jpg"),
+  tre_musketerer: require("../assets/tre_musketerer.jpg"),
   logo: require("../assets/unacast_logo.png"),
   mc: require("../assets/mc.gif")
 };
@@ -67,46 +69,62 @@ export default class Presentation extends React.Component {
             </Text>
             <Image src={images.logo.replace("/", "")} margin="70px auto 40px" height="40px"/>
           </Slide>
-          <Slide transition={["slide"]} bgColor="primary" >
+
+          <Slide transition={["slide"]} bgImage={images.tre_musketerer.replace("/", "")} bgDarken={0.50}>
             <Heading size={2} caps fit textColor="white" textFont="primary">
-              What is Unacast? x number of slides
+              Who is Unacast?
+            </Heading>
+            <Heading size={2} caps fit textColor="white" textFont="primary">
+              What are we trying to do?
             </Heading>
           </Slide>
+
+          <Slide transition={["slide"]}>
+              <Image class="shadow" src={images.whowhat1.replace("/", "")} fit margin="0px auto 0px" height="50%"/>
+          </Slide>
+
           <Slide transition={["slide"]} bgColor="primary" >
             <Heading size={2} caps fit textColor="white" textFont="primary">
               How do our architecture work? x number of slides
             </Heading>
           </Slide>
+
           <Slide transition={["slide"]} bgColor="primary" >
             <Heading size={2} caps fit textColor="white" textFont="primary">
               How do Honeybatcher work? x number of slides
             </Heading>
           </Slide>
+
           <Slide transition={["slide"]} bgColor="primary" >
             <Heading size={2} caps fit textColor="white" textFont="primary">
               vise de ulike tilpassningene jeg har gjort for å få Dataflow til å funke i Scala
             </Heading>
           </Slide>
+
           <Slide transition={["slide"]} bgImage={images.mc.replace("/", "")}>
             <Heading size={1} caps fit textColor="pink" textFont="primary">
               Stop! Demo time
             </Heading>
           </Slide>
+
           <Slide transition={["slide"]} bgColor="primary" >
             <Heading size={2} caps fit textColor="white" textFont="primary">
               Enter Scio from Spotify
             </Heading>
           </Slide>
+
           <Slide transition={["slide"]} bgColor="primary" >
             <Heading size={2} caps fit textColor="white" textFont="primary">
               Hvis litt Scio kode som kaller Big Huge Thesaurus
             </Heading>
           </Slide>
+
           <Slide transition={["slide"]} bgImage={images.mc.replace("/", "")}>
             <Heading size={1} caps fit textColor="pink" textFont="primary">
               Stop! Demo time
             </Heading>
           </Slide>
+
           <Slide transition={["slide"]} bgImage={images.mc.replace("/", "")}>
             <Heading size={1} caps fit textColor="pink" textFont="primary">
               Takk for meg!!
