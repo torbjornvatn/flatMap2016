@@ -29,7 +29,7 @@ export default class Interactive extends Component {
     };
     return (
       <div>
-        <iframe src="http://localhost:3000"></iframe>
+        <iframe src="http://localhost:3000" width="800px" height="500px" seamless></iframe>
       </div>
     );
   }

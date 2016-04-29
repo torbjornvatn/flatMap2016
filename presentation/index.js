@@ -22,6 +22,8 @@ import {
   Text
 } from "spectacle";
 
+import CodeSlide from 'spectacle-code-slide';
+
 // Import image preloader util
 import preloader from "spectacle/lib/utils/preloader";
 
@@ -39,7 +41,14 @@ require("spectacle/lib/themes/default/index.css");
 const images = {
   background: require("../assets/background.png"),
   whowhat1: require("../assets/whowhatwhen1.jpg"),
-  tre_musketerer: require("../assets/tre_musketerer.jpg"),
+  whowhat2: require("../assets/whowhatwhen2.jpg"),
+  whowhat3: require("../assets/whowhatwhen4.jpg"),
+  whowhat4: require("../assets/whowhatwhen4.jpg"),
+  everyone: require("../assets/everyone.png"),
+  cloud: require("../assets/google_cloud.png"),
+  kubernetes: require("../assets/kubernetes.png"),
+  dataflow: require("../assets/dataflow.png"),
+  architecture: require("../assets/architecture.png"),
   logo: require("../assets/unacast_logo.png"),
   mc: require("../assets/mc.gif")
 };
@@ -70,7 +79,7 @@ export default class Presentation extends React.Component {
             <Image src={images.logo.replace("/", "")} margin="70px auto 40px" height="40px"/>
           </Slide>
 
-          <Slide transition={["slide"]} bgImage={images.tre_musketerer.replace("/", "")} bgDarken={0.50}>
+          <Slide transition={["slide"]} bgColor="primary" bgImage={images.everyone.replace("/", "")} bgDarken={0.30}>
             <Heading size={2} caps fit textColor="white" textFont="primary">
               Who is Unacast?
             </Heading>
@@ -80,25 +89,95 @@ export default class Presentation extends React.Component {
           </Slide>
 
           <Slide transition={["slide"]}>
-              <Image class="shadow" src={images.whowhat1.replace("/", "")} fit margin="0px auto 0px" height="50%"/>
+            <Heading size={3} fit textColor="white" textFont="primary">
+              Warning!
+            </Heading>
+            <Heading size={2} fit textColor="white" textFont="primary">
+              Corporate slides will follow
+            </Heading>
+          </Slide>
+          <Slide transition={["zoom"]}>
+              <Image src={images.whowhat1.replace("/", "")} fill margin="0px 0px 0px -100px" width="120%"/>
+          </Slide>
+          <Slide transition={["zoom"]}>
+            <Image src={images.whowhat2.replace("/", "")} fit margin="0px 0px 0px -100px" width="120%"/>
+          </Slide>
+          <Slide transition={["zoom"]}>
+            <Image src={images.whowhat3.replace("/", "")} fit margin="0px 0px 0px -100px" width="120%"/>
+          </Slide>
+          <Slide transition={["zoom"]}>
+            <Image src={images.whowhat4.replace("/", "")} fit margin="0px 0px 0px -100px" width="120%"/>
           </Slide>
 
           <Slide transition={["slide"]} bgColor="primary" >
-            <Heading size={2} caps fit textColor="white" textFont="primary">
-              How do our architecture work? x number of slides
+            <Heading size={1} caps fit textColor="white" textFont="primary">
+              Architecture
+            </Heading>
+          </Slide>
+
+          <Slide transition={["slide"]} bgColor="primary" >
+            <Image src={images.cloud.replace("/", "")} fit margin="0px 0px 0px 0px" width="100%"/>
+          </Slide>
+
+          <Slide transition={["slide"]} bgColor="primary" >
+            <Image src={images.architecture.replace("/", "")} fit margin="0px 0px 0px -100px" width="120%"/>
+          </Slide>
+
+          <Slide transition={["slide"]} bgColor="primary" >
+            <Heading size={2} fit textColor="white" textFont="primary">
+              So what is this Dataflow thing?
+            </Heading>
+            <Image src={images.dataflow.replace("/", "")} fit margin="0px 0px 0px 0px" width="30%"/>
+          </Slide>
+
+          <Slide transition={["slide"]} bgColor="primary" bgImage="https://camo.githubusercontent.com/79e5b3c1ac55cc63dd408cb83202ae4ebd54634b/68747470733a2f2f63312e737461746963666c69636b722e636f6d2f372f363139392f363039373838323735325f336562306239396439632e6a7067" bgDarken={0.30}>
+            <Heading size={2} fit textColor="white" textFont="primary">
+              Enter the Honeybatcher
             </Heading>
           </Slide>
 
           <Slide transition={["slide"]} bgColor="primary" >
             <Heading size={2} caps fit textColor="white" textFont="primary">
-              How do Honeybatcher work? x number of slides
+              Show me some code already!
             </Heading>
           </Slide>
 
+          <CodeSlide
+            transition={[]}
+            lang="scala"
+            code={require("raw!../assets/DataflowProcessing.scala")}
+            notes="<ul>
+            <li>talk about that</li>
+            <li>and that</li>
+            <li>and this</li>
+            <li>and something else</li>
+            </ul>"
+            textSize={20}
+            ranges={[
+              { loc: [0, 1], title: "How we control Dataflow from Scala" },
+              { loc: [8, 12], note: "Setup and starting the pipeline" },
+              { loc: [16, 18], note: "The pipeline needs some setup"},
+              { loc: [56, 67], note: "Mostly Google Cloud settings"},
+              { loc: [22, 30], note: "Create transformations of PCollections from BigQuery to Dataflow operations"},
+              { loc: [46, 53], note: "Querying BigQuery"},
+              { loc: [232, 239], note: "Querying BigQuery"},
+              { loc: [220, 230], note: "Querying BigQuery"},
+              { loc: [54, 55], note: "Transform the result"},
+              { loc: [286, 297], note: "Transform and write to file"},
+              { loc: [165, 168], note: "PCollection[TableRow] => PCollection[_ <: DeviceId] using PTransform"},
+              { loc: [139, 147], note: "Filtering rows and converting them to case classes"},
+              { loc: [128, 132], note: "Writing to Google Storage"},
+              { loc: [97, 113], note: "Some of the Scala tweaks I had to do"},
+              { loc: [114, 127], note: "... and some more"},
+              { loc: [251, 278], note: "... and even more"},
+            ]}/>
+
+
           <Slide transition={["slide"]} bgColor="primary" >
-            <Heading size={2} caps fit textColor="white" textFont="primary">
-              vise de ulike tilpassningene jeg har gjort for å få Dataflow til å funke i Scala
+            <Heading size={1} caps fit textColor="white" textFont="primary" lineHeight={2}>
+              I want to see something running!
             </Heading>
+            <Interactive/>
           </Slide>
 
           <Slide transition={["slide"]} bgImage={images.mc.replace("/", "")}>
