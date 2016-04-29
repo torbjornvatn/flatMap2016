@@ -125,10 +125,10 @@ object Filter {
   def byPredicate[I](fn: (I) ⇒ Boolean) =
     GFilter.byPredicate[I, GSerializableFunction[I, JBoolean]](SerializableFunction.from[I, JBoolean](fn.andThen(b ⇒ b: JBoolean)))
 }
-
 object TextIOWriteWithoutSharding {
   def to(filePath: FilePath) =
-    TextIO.Write.to(s"gs://${filePath.value}").withoutSharding().named(s"TextIOWriteNoSharding of ${filePath.value.split("/").last}")
+    TextIO.Write.to(s"gs://${filePath.value}").withoutSharding().
+    named(s"TextIOWriteNoSharding of ${filePath.value.split("/").last}")
 }
 
 trait TableRowFormatting {
@@ -138,21 +138,21 @@ trait TableRowFormatting {
   def formatter(deviceIdType: DeviceIdType, segmentsPart: String): DeviceIdFormatterFn
 
   def deviceIdTypeFilter(deviceIdType: DeviceIdType): GFilter[TableRow] =
-    Filter byPredicate ((tr: TableRow) ⇒ nonEmpty(tr.get(deviceIdType.name))) named s"${deviceIdType.name}Filter"
+    Filter byPredicate ((tr: TableRow) ⇒
+      nonEmpty(tr.get(deviceIdType.name))) named s"${deviceIdType.name}Filter"
 
-  def fieldFromTableRow(deviceIdType: DeviceIdType): Bound[TableRow, _ <: DeviceId] = deviceIdType match {
-    case IDFA ⇒ GetIDFAFieldFromTableRowFn.asNamedParDo
-    case AdId ⇒ GetAdIdFieldFromTableRowFn.asNamedParDo
-    case _    ⇒ NoopParDo.noop[DeviceId]
-  }
+  def fieldFromTableRow(deviceIdType: DeviceIdType) =
+    deviceIdType match {
+      case IDFA ⇒ GetIDFAFieldFromTableRowFn.asNamedParDo
+      case AdId ⇒ GetAdIdFieldFromTableRowFn.asNamedParDo
+      case _    ⇒ NoopParDo.noop[DeviceId]
+    }
 
   def deviceIdTypeFormatter(deviceIdType: DeviceIdType, segmentsPart: String): Bound[DeviceId, String] = NamedParDo of formatter(deviceIdType, segmentsPart) named s"${deviceIdType.name}-$segmentsPart-Formatter"
 
   def handleEmptySegmentIds(input: PCollection[TableRow], segmentIds: List[String])(pCollection: ⇒ PCollection[String]) = {
-    if (segmentIds.nonEmpty)
-      pCollection
-    else
-      input.apply(NoopParDo.noop[String]).setCoder(StringUtf8Coder.of())
+    if (segmentIds.nonEmpty) pCollection
+    else input.apply(NoopParDo.noop[String]).setCoder(StringUtf8Coder.of())
   }
 }
 

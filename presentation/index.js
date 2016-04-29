@@ -9,6 +9,7 @@ import {
   CodePane,
   Deck,
   Fill,
+  Fit,
   Heading,
   Image,
   Layout,
@@ -42,12 +43,16 @@ const images = {
   background: require("../assets/background.png"),
   whowhat1: require("../assets/whowhatwhen1.jpg"),
   whowhat2: require("../assets/whowhatwhen2.jpg"),
-  whowhat3: require("../assets/whowhatwhen4.jpg"),
+  whowhat3: require("../assets/whowhatwhen3.jpg"),
   whowhat4: require("../assets/whowhatwhen4.jpg"),
-  everyone: require("../assets/everyone.png"),
+  world: require("../assets/world.jpg"),
   cloud: require("../assets/google_cloud.png"),
+  cloud_icon: require("../assets/google_cloud_icon.png"),
   kubernetes: require("../assets/kubernetes.png"),
   dataflow: require("../assets/dataflow.png"),
+  akka: require("../assets/akka.png"),
+  spark: require("../assets/spark.png"),
+  spotify: require("../assets/spotify.png"),
   architecture: require("../assets/architecture.png"),
   logo: require("../assets/unacast_logo.png"),
   mc: require("../assets/mc.gif")
@@ -58,7 +63,7 @@ preloader(images);
 const theme = createTheme({
   primary: "#ff4081"
 }, {
-  // primary: "Roboto"
+  primary: "Roboto Slab"
 });
 
 export default class Presentation extends React.Component {
@@ -79,17 +84,17 @@ export default class Presentation extends React.Component {
             <Image src={images.logo.replace("/", "")} margin="70px auto 40px" height="40px"/>
           </Slide>
 
-          <Slide transition={["slide"]} bgColor="primary" bgImage={images.everyone.replace("/", "")} bgDarken={0.30}>
-            <Heading size={2} caps fit textColor="white" textFont="primary">
-              Who is Unacast?
+          <Slide transition={["slide"]} bgColor="primary" bgImage={images.world.replace("/", "")} bgDarken={0.60}>
+            <Heading size={2} fit textColor="white" textFont="primary">
+              What is Unacast?
             </Heading>
-            <Heading size={2} caps fit textColor="white" textFont="primary">
+            <Heading size={2} fit textColor="white" textFont="primary">
               What are we trying to do?
             </Heading>
           </Slide>
 
-          <Slide transition={["slide"]}>
-            <Heading size={3} fit textColor="white" textFont="primary">
+          <Slide transition={[]}>
+            <Heading size={3} fit textColor="white" textFont="primary" lineHeight={1.5}>
               Warning!
             </Heading>
             <Heading size={2} fit textColor="white" textFont="primary">
@@ -124,20 +129,57 @@ export default class Presentation extends React.Component {
           </Slide>
 
           <Slide transition={["slide"]} bgColor="primary" >
-            <Heading size={2} fit textColor="white" textFont="primary">
+            <Heading size={1} textColor="white" textFont="primary" margin="0px 0px 80px">
               So what is this Dataflow thing?
             </Heading>
-            <Image src={images.dataflow.replace("/", "")} fit margin="0px 0px 0px 0px" width="30%"/>
+            <Layout>
+              <Appear>
+                <Fill>
+                  <Image src={images.dataflow.replace("/", "")} margin="80px 0px 0px 0px"/>
+                </Fill>
+              </Appear>
+              <Appear>
+                <Fill>
+                  <Heading size={2} caps textColor="white" margin="100px 0px 0px 0px">
+                    ≈
+                  </Heading>
+                </Fill>
+              </Appear>
+              <Appear>
+                <Fill>
+                  <Image src={images.spark.replace("/", "")} width="300px" />
+                </Fill>
+              </Appear>
+            </Layout>
           </Slide>
 
           <Slide transition={["slide"]} bgColor="primary" bgImage="https://camo.githubusercontent.com/79e5b3c1ac55cc63dd408cb83202ae4ebd54634b/68747470733a2f2f63312e737461746963666c69636b722e636f6d2f372f363139392f363039373838323735325f336562306239396439632e6a7067" bgDarken={0.30}>
-            <Heading size={2} fit textColor="white" textFont="primary">
+            <Heading size={2} fit textColor="white" textFont="primary" margin="0px 0px 100px">
               Enter the Honeybatcher
             </Heading>
+            <Layout>
+              <Appear>
+                <Fill>
+                  <Image src={images.akka.replace("/", "")} width={300} margin={40}/>
+                </Fill>
+              </Appear>
+              <Appear>
+                <Fill>
+                  <Heading size={2} caps textColor="white" margin="100px 0px 0px 40px">
+                    +
+                  </Heading>
+                </Fill>
+              </Appear>
+              <Appear>
+                <Fill>
+                  <Image src={images.cloud_icon.replace("/", "")} width={300}/>
+                </Fill>
+              </Appear>
+            </Layout>
           </Slide>
 
           <Slide transition={["slide"]} bgColor="primary" >
-            <Heading size={2} caps fit textColor="white" textFont="primary">
+            <Heading size={1} textColor="white" textFont="primary">
               Show me some code already!
             </Heading>
           </Slide>
@@ -154,31 +196,23 @@ export default class Presentation extends React.Component {
             </ul>"
             textSize={20}
             ranges={[
-              { loc: [0, 1], title: "How we control Dataflow from Scala" },
+              { loc: [0, 1], title: "How we use Dataflow from Scala" },
               { loc: [8, 12], note: "Setup and starting the pipeline" },
               { loc: [16, 18], note: "The pipeline needs some setup"},
-              { loc: [56, 67], note: "Mostly Google Cloud settings"},
+              { loc: [62, 73], note: "Mostly Google Cloud settings"},
               { loc: [22, 30], note: "Create transformations of PCollections from BigQuery to Dataflow operations"},
               { loc: [46, 53], note: "Querying BigQuery"},
-              { loc: [232, 239], note: "Querying BigQuery"},
-              { loc: [220, 230], note: "Querying BigQuery"},
+              { loc: [232, 240], note: "Querying BigQuery"},
+              { loc: [221, 231], note: "Querying BigQuery"},
               { loc: [54, 55], note: "Transform the result"},
-              { loc: [286, 297], note: "Transform and write to file"},
+              { loc: [287, 298], note: "Transform and write to file"},
               { loc: [165, 168], note: "PCollection[TableRow] => PCollection[_ <: DeviceId] using PTransform"},
-              { loc: [139, 147], note: "Filtering rows and converting them to case classes"},
-              { loc: [128, 132], note: "Writing to Google Storage"},
+              { loc: [138, 148], note: "Filtering rows and converting them to case classes"},
+              { loc: [127, 132], note: "Writing to Google Storage"},
               { loc: [97, 113], note: "Some of the Scala tweaks I had to do"},
               { loc: [114, 127], note: "... and some more"},
               { loc: [251, 278], note: "... and even more"},
             ]}/>
-
-
-          <Slide transition={["slide"]} bgColor="primary" >
-            <Heading size={1} caps fit textColor="white" textFont="primary" lineHeight={2}>
-              I want to see something running!
-            </Heading>
-            <Interactive/>
-          </Slide>
 
           <Slide transition={["slide"]} bgImage={images.mc.replace("/", "")}>
             <Heading size={1} caps fit textColor="pink" textFont="primary">
@@ -187,9 +221,19 @@ export default class Presentation extends React.Component {
           </Slide>
 
           <Slide transition={["slide"]} bgColor="primary" >
-            <Heading size={2} caps fit textColor="white" textFont="primary">
-              Enter Scio from Spotify
+            <Heading size={1} fit textColor="white" textFont="primary" >
+              I want to see something running!
             </Heading>
+            {<div>
+              <iframe frameBorder="0" src="http://localhost:3000" width="900px" height="550px" seamless></iframe>
+            </div>}
+          </Slide>
+
+          <Slide transition={["slide"]} bgColor="primary" notes="This is a big verification for us since Spotify is migrating all their systems to GCloud">
+            <Image src={images.spotify.replace("/", "")} width={800}/>
+            <Text textColor="white" textFont="primary">
+              http://spotify.github.io/scio
+            </Text>
           </Slide>
 
           <Slide transition={["slide"]} bgColor="primary" >
@@ -199,9 +243,18 @@ export default class Presentation extends React.Component {
           </Slide>
 
           <Slide transition={["slide"]} bgImage={images.mc.replace("/", "")}>
-            <Heading size={1} caps fit textColor="pink" textFont="primary">
+            <Heading size={1} textColor="pink" textFont="primary">
               Stop! Demo time
             </Heading>
+          </Slide>
+
+          <Slide transition={["slide"]} bgColor="primary" >
+            <Text textColor="white" textFont="primary" lineHeight={1.5}>
+              http://thetwenty.jobs
+            </Text>
+            {
+              <iframe frameBorder="0" src="http://thetwenty.jobs/" width="900px" height="600px" seamless></iframe>
+            }
           </Slide>
 
           <Slide transition={["slide"]} bgImage={images.mc.replace("/", "")}>
